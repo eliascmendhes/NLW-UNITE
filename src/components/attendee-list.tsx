@@ -11,9 +11,16 @@ import { Table } from './table/table';
 import { TableHeader } from './table/table-header';
 import { TableCell } from './table/table-cell';
 import { TableRow } from './table/table.row';
-
+import { ChangeEvent, useState } from 'react';
+import { attendees } from '../data/attendees';
+import { formatRelative } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export function AttendeeList() {
+  const [valorDoInput, alterarValorInput] = useState('')
+  function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
+    alterarValorInput(event.target.value)
+  }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-3 items-center">
@@ -25,6 +32,8 @@ export function AttendeeList() {
             placeholder="Buscar participante..."
           />
         </div>
+
+        {valorDoInput}
       </div>
 
      <Table>
@@ -51,23 +60,23 @@ export function AttendeeList() {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 8 }).map((_, i) => {
+            {attendees.map((attendee) => {
               return (
-                <TableRow key={i} >
+                <TableRow key={attendee.id} >
                   <TableCell >
                     <input type="checkbox" className="size-4 bg-black/20 rounded border border-white/10" />
                   </TableCell>
-                  <TableCell>1</TableCell>
+                  <TableCell>{attendee.id}</TableCell>
                   <TableCell>
                     <div className="flex flex-col gap-1">
                       <span className="font-semibold text-white">
-                        Elias
+                        {attendee.name}
                       </span>
-                      <span>@mozila.firefox.com</span>
+                      <span>{attendee.email}</span>
                     </div>
                   </TableCell>
-                  <TableCell>Hoje</TableCell>
-                  <TableCell>Indeterminado</TableCell>
+                  <TableCell>{formatRelative(attendee.createdAt, new Date(), {locale: ptBR})}</TableCell>
+                  <TableCell>{formatRelative(attendee.checkdInAt, new Date(), {locale: ptBR})}</TableCell>
                   <TableCell>
                     <IconButt transparent={true}>
                       <MoreHorizontal className="size-4" />
