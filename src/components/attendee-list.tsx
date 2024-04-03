@@ -18,8 +18,27 @@ import { ptBR } from 'date-fns/locale';
 
 export function AttendeeList() {
   const [valorDoInput, alterarValorInput] = useState('')
+  const [pagina, setPagina] = useState(1)
+  const totalPaginas = Math.ceil(attendees.length / 10)
+
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
     alterarValorInput(event.target.value)
+  }
+
+  function goToNextPage() {
+    setPagina(pagina + 1)
+  }
+
+  function goToPreviousPage() {
+    setPagina(pagina - 1)
+  }
+
+  function goToFirstPage() {
+    setPagina(1)
+  }
+
+  function goToLastPage() {
+    setPagina(totalPaginas)
   }
   return (
     <div className="flex flex-col gap-4">
@@ -60,7 +79,7 @@ export function AttendeeList() {
             </tr>
           </thead>
           <tbody>
-            {attendees.map((attendee) => {
+            {attendees.slice((pagina - 1) * 10, pagina * 10).map((attendee) => {
               return (
                 <TableRow key={attendee.id} >
                   <TableCell >
@@ -89,23 +108,23 @@ export function AttendeeList() {
           <tfoot>
             <tr>
               <TableCell className="py-3 px-4 text-sm text-zinc-300" colSpan={3}>
-                Mostrando 10 de 228 itens
+                Mostrando 10 de {attendees.length} itens
               </TableCell>
               <td className="py-3 px-4 text-sm text-zinc-300 text-right" colSpan={3}>
                 <div className="inline-flex items-center gap-8">
-                  <span>Página 1 de 23</span>
+                  <span>Página {pagina} de {totalPaginas}</span>
 
                   <div className="flex gap-1.5">
-                    <IconButt>
+                    <IconButt onClick={goToFirstPage} disabled={pagina === 1}>
                       <ChevronsLeft className="size-4" />
                     </IconButt>
-                    <IconButt>
+                    <IconButt onClick={goToPreviousPage} disabled={pagina === 1}>
                       <ChevronLeft className="size-4" />
                     </IconButt>
-                    <IconButt>
+                    <IconButt onClick={goToNextPage} disabled={pagina === totalPaginas}>
                       <ChevronRight className="size-4" />
                     </IconButt>
-                    <IconButt>
+                    <IconButt onClick={goToLastPage} disabled={pagina === totalPaginas}>
                       <ChevronsRight className="size-4" />
                     </IconButt>
                   </div>

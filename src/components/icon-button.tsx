@@ -4,7 +4,7 @@ interface IconButtonProps extends ComponentProps<'button'> {
   transparent?: boolean
 }
 
-export function IconButt({transparent, ...props}: IconButtonProps) {
+export function IconButt({transparent,  ...props}: IconButtonProps) {
   return(
     <button {...props} className={transparent 
       ? "bg-white/20 border border-white/10 rounded-md p-1.5" 
