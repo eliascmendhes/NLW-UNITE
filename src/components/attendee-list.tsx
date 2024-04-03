@@ -7,6 +7,11 @@ import {
   Search,
 } from 'lucide-react';
 import { IconButt } from './icon-button';
+import { Table } from './table/table';
+import { TableHeader } from './table/table-header';
+import { TableCell } from './table/table-cell';
+import { TableRow } from './table/table.row';
+
 
 export function AttendeeList() {
   return (
@@ -22,62 +27,61 @@ export function AttendeeList() {
         </div>
       </div>
 
-      <div className="border border-white/10 rounded-lg">
-        <table className="w-full">
+     <Table>
           <thead>
             <tr className="border-b border-white/10">
-              <th
+              <TableHeader
                 style={{ width: 48 }}
-                className="py-3 px-4 text-sm font-semibold text-left"
+                
               >
                 <input type="checkbox" className="size-4 bg-black/20 rounded border border-white/10" />
-              </th>
-              <th className="py-3 px-4 text-sm font-semibold text-left">Código</th>
-              <th className="py-3 px-4 text-sm font-semibold text-left">Participante</th>
-              <th className="py-3 px-4 text-sm font-semibold text-left">
+              </TableHeader>
+              <TableHeader >Código</TableHeader>
+              <TableHeader >Participante</TableHeader>
+              <TableHeader >
                 Data de inscrição
-              </th>
-              <th className="py-3 px-4 text-sm font-semibold text-left">
+              </TableHeader>
+              <TableHeader >
                 Data do check-in
-              </th>
-              <th
+              </TableHeader>
+              <TableHeader
                 style={{ width: 64 }}
-                className="py-3 px-4 text-sm font-semibold text-left"
-              ></th>
+                
+              ></TableHeader>
             </tr>
           </thead>
           <tbody>
             {Array.from({ length: 8 }).map((_, i) => {
               return (
-                <tr key={i} className="border-b border-white/10 hover:bg-white/5">
-                  <td className="py-3 px-4 text-sm text-zinc-300">
+                <TableRow key={i} >
+                  <TableCell >
                     <input type="checkbox" className="size-4 bg-black/20 rounded border border-white/10" />
-                  </td>
-                  <td className="py-3 px-4 text-sm text-zinc-300">1</td>
-                  <td className="py-3 px-4 text-sm text-zinc-300">
+                  </TableCell>
+                  <TableCell>1</TableCell>
+                  <TableCell>
                     <div className="flex flex-col gap-1">
                       <span className="font-semibold text-white">
                         Elias
                       </span>
                       <span>@mozila.firefox.com</span>
                     </div>
-                  </td>
-                  <td className="py-3 px-4 text-sm text-zinc-300">Hoje</td>
-                  <td className="py-3 px-4 text-sm text-zinc-300">Indeterminado</td>
-                  <td className="py-3 px-4 text-sm text-zinc-300">
+                  </TableCell>
+                  <TableCell>Hoje</TableCell>
+                  <TableCell>Indeterminado</TableCell>
+                  <TableCell>
                     <IconButt transparent={true}>
                       <MoreHorizontal className="size-4" />
                     </IconButt>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               );
             })}
           </tbody>
           <tfoot>
             <tr>
-              <td className="py-3 px-4 text-sm text-zinc-300" colSpan={3}>
+              <TableCell className="py-3 px-4 text-sm text-zinc-300" colSpan={3}>
                 Mostrando 10 de 228 itens
-              </td>
+              </TableCell>
               <td className="py-3 px-4 text-sm text-zinc-300 text-right" colSpan={3}>
                 <div className="inline-flex items-center gap-8">
                   <span>Página 1 de 23</span>
@@ -100,8 +104,7 @@ export function AttendeeList() {
               </td>
             </tr>
           </tfoot>
-        </table>
-      </div>
+          </Table>
     </div>
   );
 }
