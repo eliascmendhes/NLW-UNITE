@@ -6,6 +6,7 @@ import {
   MoreHorizontal,
   Search,
 } from 'lucide-react';
+import { IconButt } from './icon-button';
 
 export function AttendeeList() {
   return (
@@ -64,9 +65,9 @@ export function AttendeeList() {
                   <td className="py-3 px-4 text-sm text-zinc-300">Hoje</td>
                   <td className="py-3 px-4 text-sm text-zinc-300">Indeterminado</td>
                   <td className="py-3 px-4 text-sm text-zinc-300">
-                    <button className="bg-black/20 border border-white/10 rounded-md p-1.5">
+                    <IconButt transparent={true}>
                       <MoreHorizontal className="size-4" />
-                    </button>
+                    </IconButt>
                   </td>
                 </tr>
               );
@@ -82,18 +83,18 @@ export function AttendeeList() {
                   <span>Página 1 de 23</span>
 
                   <div className="flex gap-1.5">
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    <IconButt>
                       <ChevronsLeft className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButt>
+                    <IconButt>
                       <ChevronLeft className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButt>
+                    <IconButt>
                       <ChevronRight className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButt>
+                    <IconButt>
                       <ChevronsRight className="size-4" />
-                    </button>
+                    </IconButt>
                   </div>
                 </div>
               </td>
