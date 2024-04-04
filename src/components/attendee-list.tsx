@@ -11,15 +11,34 @@ import { Table } from './table/table';
 import { TableHeader } from './table/table-header';
 import { TableCell } from './table/table-cell';
 import { TableRow } from './table/table.row';
-import { ChangeEvent, useState } from 'react';
-import { attendees } from '../data/attendees';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { formatRelative } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+
+interface Attendee {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  checkedInAt: string | null;
+}
+
 
 export function AttendeeList() {
   const [valorDoInput, alterarValorInput] = useState('')
   const [pagina, setPagina] = useState(1)
+  const [attendees, setAttendees] = useState([])
   const totalPaginas = Math.ceil(attendees.length / 10)
+
+  useEffect(() => {
+    fetch('http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      setAttendees(data.attendees)
+    })
+
+  }, [pagina])
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
     alterarValorInput(event.target.value)
@@ -79,7 +98,7 @@ export function AttendeeList() {
             </tr>
           </thead>
           <tbody>
-            {attendees.slice((pagina - 1) * 10, pagina * 10).map((attendee) => {
+            {attendees.map((attendee) => {
               return (
                 <TableRow key={attendee.id} >
                   <TableCell >
@@ -94,8 +113,8 @@ export function AttendeeList() {
                       <span>{attendee.email}</span>
                     </div>
                   </TableCell>
-                  <TableCell>{formatRelative(attendee.createdAt, new Date(), {locale: ptBR})}</TableCell>
-                  <TableCell>{formatRelative(attendee.checkdInAt, new Date(), {locale: ptBR})}</TableCell>
+                  <TableCell>{attendee.createdAt}</TableCell>
+                  <TableCell>{attendee.checkedInAt}</TableCell>
                   <TableCell>
                     <IconButt transparent={true}>
                       <MoreHorizontal className="size-4" />
